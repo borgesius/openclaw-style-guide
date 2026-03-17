@@ -1,5 +1,5 @@
 
-import { getStyleBlock, getContext } from "./index";
+import { getStyleBlock } from "./index";
 
 console.log("=== openclaw-style-guide plugin test ===\n");
 
@@ -23,7 +23,7 @@ const emptyCustom = getStyleBlock({ preset: "custom", rules: "" });
 console.log("--- custom preset (empty rules) ---");
 console.log(emptyCustom + "\n");
 
-console.log("--- getContext() for chicago ---");
-const ctx = getContext({ preset: "chicago" });
+console.log("--- getStyleBlock() for chicago ---");
+const ctx = getStyleBlock({ preset: "chicago" });
 console.log("Length:", ctx.length, "chars");
 console.log("\n=== All 4 presets working ===");

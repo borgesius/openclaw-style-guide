@@ -1,4 +1,3 @@
-
 export type StylePreset = "chicago" | "ap" | "mla" | "custom";
 
 export interface StyleGuideConfig {
@@ -85,14 +84,18 @@ export function getStyleBlock(config: StyleGuideConfig): string {
   }
 }
 
-// OpenClaw context-engine plugin interface
-// Called every turn to inject context into the system prompt
-export function getContext(config: StyleGuideConfig): string {
-  return getStyleBlock(config);
-}
+// OpenClaw plugin — object export with register method
+const plugin = {
+  id: "openclaw-style-guide",
+  name: "OpenClaw Style Guide",
+  description: "Injects writing style rules into agent system prompts to enforce consistent prose",
+  register(api: any) {
+    const config: StyleGuideConfig = api.pluginConfig ?? {};
 
-// Default export for OpenClaw plugin loader
-export default {
-  getContext,
-  getStyleBlock,
+    api.on("before_prompt_build", async () => ({
+      appendSystemContext: getStyleBlock(config),
+    }));
+  },
 };
+
+export default plugin;

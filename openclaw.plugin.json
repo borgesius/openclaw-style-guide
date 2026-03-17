@@ -1,4 +1,5 @@
 {
+  "id": "openclaw-style-guide",
   "name": "openclaw-style-guide",
   "version": "0.1.0",
   "description": "Injects writing style rules into agent system prompts to enforce consistent prose",
