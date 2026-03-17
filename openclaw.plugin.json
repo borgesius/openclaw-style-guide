@@ -1,0 +1,23 @@
+{
+  "name": "openclaw-style-guide",
+  "version": "0.1.0",
+  "description": "Injects writing style rules into agent system prompts to enforce consistent prose",
+  "kind": "context-engine",
+  "main": "dist/index.js",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "preset": {
+        "type": "string",
+        "enum": ["chicago", "ap", "mla", "custom"],
+        "default": "chicago",
+        "description": "Style guide preset to use"
+      },
+      "rules": {
+        "type": "string",
+        "default": "",
+        "description": "Custom rules string (only used when preset = custom)"
+      }
+    }
+  }
+}
