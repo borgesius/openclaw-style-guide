@@ -115,22 +115,13 @@ Just answer directly.
 
 ## Token Cost
 
-The style rules add **~200–300 tokens** to each system prompt depending on the preset. That's negligible: a typical conversation uses thousands of tokens, so the style guide is <1% of your context budget.
-
-The tradeoff is worth it. You get consistent, professional prose without manually adding style instructions to every agent config.
+It's like 200–300 tokens per prompt. Basically nothing. Your conversations use thousands of tokens anyway, so this is <1% overhead for much better writing.
 
 ## Model Compatibility
 
-**Works well:**
-- Claude (Sonnet, Opus, Haiku) — excellent at following style rules
-- GPT-4, GPT-4o — good adherence
-- Gemini Pro/Ultra — follows most rules
+**Works great:** Claude (all sizes), GPT-4/4o, Gemini Pro/Ultra
 
-**Mixed results:**
-- GPT-3.5-turbo — follows basic rules but may ignore subtleties (em dash spacing, Oxford comma)
-- Smaller/local models — YMMV; they may lack the capacity to internalize all rules simultaneously
-
-The more capable the model, the better it follows style guidance. If you're using a smaller model, consider using `custom` preset with fewer, simpler rules.
+**Hit or miss:** GPT-3.5-turbo, smaller/local models. They'll follow the obvious rules but might miss the finer points like em dash spacing. If you're on a weaker model, use `custom` with simpler rules.
 
 ## How It Works
 
