@@ -113,13 +113,24 @@ above. Spell out any number that begins a sentence.
 Just answer directly.
 ```
 
-## Before & After
+## Token Cost
 
-**Without style guide:**
-> Certainly! I'd be happy to help you with that. There are essentially three things you should consider — first, the budget, second, the timeline, and third — the team size.
+The style rules add **~200–300 tokens** to each system prompt depending on the preset. That's negligible: a typical conversation uses thousands of tokens, so the style guide is <1% of your context budget.
 
-**With Chicago style guide:**
-> Three things to consider: budget, timeline, and team size.
+The tradeoff is worth it. You get consistent, professional prose without manually adding style instructions to every agent config.
+
+## Model Compatibility
+
+**Works well:**
+- Claude (Sonnet, Opus, Haiku) — excellent at following style rules
+- GPT-4, GPT-4o — good adherence
+- Gemini Pro/Ultra — follows most rules
+
+**Mixed results:**
+- GPT-3.5-turbo — follows basic rules but may ignore subtleties (em dash spacing, Oxford comma)
+- Smaller/local models — YMMV; they may lack the capacity to internalize all rules simultaneously
+
+The more capable the model, the better it follows style guidance. If you're using a smaller model, consider using `custom` preset with fewer, simpler rules.
 
 ## How It Works
 
