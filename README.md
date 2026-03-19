@@ -1,29 +1,51 @@
 # @borgesius/openclaw-style-guide
 
-An OpenClaw context-engine plugin that injects writing style rules into every agent system prompt, enforcing consistent prose across all outputs.
+[![npm version](https://img.shields.io/npm/v/@borgesius/openclaw-style-guide.svg)](https://www.npmjs.com/package/@borgesius/openclaw-style-guide)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-## Install
+An OpenClaw context-engine plugin that injects writing style rules into every agent system prompt. Enforce consistent prose—Chicago, AP, MLA, or your own custom style—across all your AI outputs.
 
-```
+## Why?
+
+LLMs default to inconsistent, often corporate-sounding prose. They overuse em dashes, hedge constantly, and throw in phrases like "Certainly!" and "Great question!" that make your assistant sound like a chatbot.
+
+This plugin fixes that by injecting clear, forceful style rules into every system prompt. Your agents write better because they have explicit rules to follow.
+
+## Installation
+
+```bash
 openclaw plugins install @borgesius/openclaw-style-guide
 ```
 
-## What It Does
+Or with npm:
 
-This plugin is a `context-engine` kind — it runs every turn and injects a style guide block into the agent system prompt. The injected block gives the agent clear, forceful rules about punctuation, grammar, and writing conventions to follow.
+```bash
+npm install @borgesius/openclaw-style-guide
+```
 
-## Configuration
-
-Configure via `plugins.entries.openclaw-style-guide.config` in your openclaw.json:
+Then add to your `openclaw.json`:
 
 ```json
 {
   "plugins": {
     "entries": {
-      "openclaw-style-guide": {
+      "@borgesius/openclaw-style-guide": {}
+    }
+  }
+}
+```
+
+## Configuration
+
+Configure via `plugins.entries.@borgesius/openclaw-style-guide.config`:
+
+```json
+{
+  "plugins": {
+    "entries": {
+      "@borgesius/openclaw-style-guide": {
         "config": {
-          "preset": "chicago",
-          "rules": ""
+          "preset": "chicago"
         }
       }
     }
@@ -33,45 +55,85 @@ Configure via `plugins.entries.openclaw-style-guide.config` in your openclaw.jso
 
 ### Presets
 
-**`chicago`** (default) — Chicago Manual of Style:
-- Em dashes with no spaces (word—word), used sparingly; prefer colon/semicolon/period
-- Oxford comma always
-- Double quotes primary, single quotes nested
-- Numbers one through one hundred spelled out; 101+ use numerals
-- Active voice preferred
-- No hollow corporate filler ("certainly!", "great question!", etc.)
+| Preset | Description |
+|--------|-------------|
+| `chicago` | **Default.** Chicago Manual of Style. Oxford comma, em dashes without spaces (used sparingly), spell out numbers 1–100. |
+| `ap` | AP Style. No Oxford comma, em dashes with spaces, spell out 1–9 only. |
+| `mla` | MLA Academic Style. Oxford comma, academic conventions. |
+| `custom` | Your own rules via the `rules` field. |
 
-**`ap`** — AP Style:
-- No Oxford comma
-- Em dashes with spaces around them
-- Numbers: spell out one–nine, numerals for 10+
-- AP abbreviation conventions
+### Custom Rules
 
-**`mla`** — MLA Academic Style:
-- Oxford comma
-- Em dashes with no spaces
-- Academic citation conventions
-- Spell out numbers writable in one or two words
+Define your own style guide:
 
-**`custom`** — User-defined rules:
 ```json
 {
-  "preset": "custom",
-  "rules": "Always use active voice. Keep sentences under 25 words. No jargon. Oxford comma required."
+  "plugins": {
+    "entries": {
+      "@borgesius/openclaw-style-guide": {
+        "config": {
+          "preset": "custom",
+          "rules": "Always use active voice. Keep sentences under 25 words. No jargon. Oxford comma required. Never start a sentence with 'I'."
+        }
+      }
+    }
+  }
 }
 ```
 
-## Injected Prompt Example
+## What Gets Injected
 
-When `preset: "chicago"`, the plugin injects a block like this into every system prompt:
+When using `chicago` (the default), the plugin adds this to every system prompt:
 
 ```
 ## Writing Style: Chicago Manual of Style
 
 You follow Chicago Manual of Style. These rules are non-negotiable:
 
-**Em dashes:** No spaces around em dashes—like this, not like — this. Use em dashes sparingly...
-...
+**Em dashes:** No spaces around em dashes—like this, not like — this.
+Use em dashes sparingly. Most of the time a colon, semicolon, or period
+is the better choice.
+
+**Oxford comma:** Always use the serial (Oxford) comma in lists of three
+or more items: red, white, and blue.
+
+**Quotation marks:** Double quotes for primary quotations. Single quotes
+for quotations within quotations.
+
+**Punctuation placement:** Periods and commas go inside quotation marks.
+Colons and semicolons go outside.
+
+**Numbers:** Spell out one through one hundred. Use numerals for 101 and
+above. Spell out any number that begins a sentence.
+
+**Voice:** No passive voice abuse. Prefer active constructions.
+
+**Filler phrases to avoid:** Never write "certainly!", "great question!",
+"I would be happy to", "absolutely!", or similar hollow corporate filler.
+Just answer directly.
+```
+
+## Before & After
+
+**Without style guide:**
+> Certainly! I'd be happy to help you with that. There are essentially three things you should consider — first, the budget, second, the timeline, and third — the team size.
+
+**With Chicago style guide:**
+> Three things to consider: budget, timeline, and team size.
+
+## How It Works
+
+This is a `context-engine` plugin. It hooks into OpenClaw's `before_prompt_build` event and appends the style rules to the system context. The rules appear in every agent's system prompt, ensuring consistent style across all conversations.
+
+## TypeScript
+
+The package exports types if you want to use the style blocks programmatically:
+
+```typescript
+import { getStyleBlock, StyleGuideConfig, StylePreset } from '@borgesius/openclaw-style-guide';
+
+const config: StyleGuideConfig = { preset: 'chicago' };
+const styleBlock = getStyleBlock(config);
 ```
 
 ## License

@@ -1,16 +1,49 @@
 {
   "name": "@borgesius/openclaw-style-guide",
   "version": "0.1.0",
-  "description": "OpenClaw context-engine plugin that injects writing style rules into agent system prompts",
+  "description": "OpenClaw context-engine plugin that injects writing style rules (Chicago, AP, MLA) into agent system prompts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/index.js.map",
+    "dist/index.d.ts.map",
+    "openclaw.plugin.json"
+  ],
   "scripts": {
     "build": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "npx ts-node src/test.ts"
   },
-  "keywords": ["openclaw", "openclaw-plugin", "style-guide", "chicago", "ap-style", "writing", "prose", "context-engine"],
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "context-engine",
+    "style-guide",
+    "writing",
+    "prose",
+    "chicago-style",
+    "ap-style",
+    "mla-style",
+    "grammar",
+    "llm",
+    "ai-assistant",
+    "system-prompt"
+  ],
   "author": "borgesius",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borgesius/openclaw-style-guide.git"
+  },
+  "homepage": "https://github.com/borgesius/openclaw-style-guide#readme",
+  "bugs": {
+    "url": "https://github.com/borgesius/openclaw-style-guide/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "devDependencies": {
     "typescript": "^5.0.0",
     "ts-node": "^10.0.0"

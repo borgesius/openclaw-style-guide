@@ -1,0 +1,23 @@
+# Source files (dist is published)
+src/
+tsconfig.json
+
+# Development
+.git/
+.gitignore
+node_modules/
+
+# Build artifacts
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+
+# Tests
+dist/test.*
+__tests__/
+coverage/
+
+# Docs that aren't needed in package
+.github/
